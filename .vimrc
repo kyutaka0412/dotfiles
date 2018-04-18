@@ -44,7 +44,7 @@ NeoBundle 'vim-ruby/vim-ruby'
 "NeoBundle 'bling/vim-airline'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
-NeoBundle 'thinca/vim-ref'
+"NeoBundle 'thinca/vim-ref'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'vim-scripts/gtags.vim'
 NeoBundle 'scrooloose/nerdtree'
@@ -64,7 +64,7 @@ NeoBundle 'mikehaertl/pdv-standalone'
 NeoBundle 'blueyed/smarty.vim'
 "NeoBundle 'akinama/phpfolding.vim'
 "NeoBundle 'akinama/unite-ethna'
-"NeoBundle 'akinama/unite-cake'
+NeoBundle 'akinama/unite-cake'
 NeoBundle 'akinama/SmartyJump'
 NeoBundle 'hewes/unite-gtags'
 NeoBundle 'mattn/webapi-vim'
@@ -78,11 +78,11 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'jiangmiao/simple-javascript-indenter'
 NeoBundle 'jelera/vim-javascript-syntax'
 "NeoBundle 'vim-scripts/jQuery'
-NeoBundle 'honza/vim-snippets'
+"NeoBundle 'honza/vim-snippets'
 NeoBundle 'vim-scripts/BufOnly.vim'
 "NeoBundle 'vim-scripts/android.vim'
-NeoBundle 'akinama/vim-ref-ri'
-"NeoBundle 'vim-scripts/rails.vim'
+"NeoBundle 'akinama/vim-ref-ri'
+NeoBundle 'vim-scripts/rails.vim'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'chrisgillis/vim-bootstrap3-snippets'
 NeoBundleLazy 'OmniSharp/omnisharp-vim', {
@@ -97,6 +97,9 @@ NeoBundle 'OrangeT/vim-csharp'
 NeoBundle 'tpope/vim-dispatch'
 "NeoBundle 'fatih/vim-go.git'
 NeoBundle 'jeroenbourgois/vim-actionscript'
+NeoBundle 'junegunn/vim-easy-align'
+NeoBundle 'elzr/vim-json'
+NeoBundle 'edkolev/tmuxline.vim'
 
 call neobundle#end()
 
@@ -288,11 +291,37 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline_theme='solarized'
 let g:airline_solarized_bg='dark'
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline_powerline_fonts = 1
 " ヘッダステータスのファイル名のみを表示する
 let g:airline#extensions#tabline#fnamemod = ':t'
 " ファイル名のみを表示する
 let g:airline_section_c = '%t'
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+
+" powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+" -----------------------------------------------------------------------------
+" tmuxline
+" -----------------------------------------------------------------------------
+let g:tmuxline_preset = {
+  \'a'    : '#S',
+  \'c'    : ['#(whoami)', '#(uptime | cud -d " " -f 1,2,3)'],
+  \'win'  : ['#I', '#W'],
+  \'cwin' : ['#I', '#W', '#F'],
+  \'x'    : '#(date)',
+  \'y'    : ['%R', '%a', '%Y'],
+  \'z'    : '#H'}
+let g:tmuxline_theme = 'solarized'
+let g:tmuxline_solarized_bg='dark'
 
 " -----------------------------------------------------------------------------
 "  unite.vim
@@ -341,15 +370,15 @@ call unite#custom_source(
 " -----------------------------------------------------------------------------
 "  vim-ref
 " -----------------------------------------------------------------------------
-let g:ref_phpmanual_path = $DOTVIM . '/docs/phpmanual'
-nnoremap <silent> <space>refp :Unite ref/phpmanual<CR>
-nnoremap <silent> <space>refe :Unite ref/refe<CR>
-nnoremap <silent> <space>refr :Unite ref/ri<CR>
-
-" Ruby
-let g:ref_use_vimproc=1
-let g:ref_refe_version=2
-let g:ref_refe_encoding='utf-8'
+"let g:ref_phpmanual_path = $DOTVIM . '/docs/phpmanual'
+"nnoremap <silent> <space>refp :Unite ref/phpmanual<CR>
+"nnoremap <silent> <space>refe :Unite ref/refe<CR>
+"nnoremap <silent> <space>refr :Unite ref/ri<CR>
+"
+"" Ruby
+"let g:ref_use_vimproc=1
+"let g:ref_refe_version=2
+"let g:ref_refe_encoding='utf-8'
 
 " -----------------------------------------------------------------------------
 "  unite-gtags.vim
@@ -439,23 +468,6 @@ nnoremap <silent> <space>rs :Unite rails/stylesheet<CR>
 nnoremap <silent> <space>rh :Unite rails/helper<CR>
 
 " -----------------------------------------------------------------------------
-"  Unite ethna
-" -----------------------------------------------------------------------------
-nnoremap <silent> <space>emo :Unite ethna/module<CR>
-nnoremap <silent> <space>ep  :Unite ethna/processor<CR>
-nnoremap <silent> <space>eca :Unite ethna/cascade<CR>
-nnoremap <silent> <space>ed  :Unite ethna/dataformat<CR>
-nnoremap <silent> <space>eg  :Unite ethna/gateway<CR>
-nnoremap <silent> <space>ess :Unite ethna/shardselector<CR>
-nnoremap <silent> <space>ea  :Unite ethna/action<CR>
-nnoremap <silent> <space>et  :Unite ethna/template<CR>
-nnoremap <silent> <space>eco :Unite ethna/config<CR>
-nnoremap <silent> <space>ema :Unite ethna/master<CR>
-nnoremap <silent> <space>eh  :Unite ethna/hook<CR>
-nnoremap <silent> <space>ecl :Unite ethna/cli<CR>
-nnoremap <silent> <space>esr :Unite ethna/src<CR>
-
-" -----------------------------------------------------------------------------
 "  PHP Folding
 " -----------------------------------------------------------------------------
 augroup vimrc
@@ -468,6 +480,8 @@ augroup END
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_html_tidy_ignore_errors=['trimming empty', 'missing </a> before <div>', 'discarding unexpected </a>']
 let g:syntastic_html_validator_parser = 'html5'
+let g:syntastic_mode_map = { 'mode': 'active' }
+let g:syntastic_ruby_checkers = ['rubocop']
 
 " -----------------------------------------------------------------------------
 "  SmartyJump
@@ -485,8 +499,8 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 30
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-nnoremap <silent> <space>t :NERDTreeToggle<CR>
-nnoremap <silent> <space>f :NERDTreeFind<CR>
+nnoremap <silent> <space>nt :NERDTreeToggle<CR>
+nnoremap <silent> <space>nf :NERDTreeFind<CR>
 
 " -----------------------------------------------------------------------------
 "  Git
@@ -550,4 +564,13 @@ set background=dark
 colorscheme solarized
 let g:solarized_termcolors=256
 
-
+" json整形
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+    if 0 == a:0
+        let l:arg = "."
+    else
+        let l:arg = a:1
+    endif
+    execute "%! jq \"" . l:arg . "\""
+endfunction
