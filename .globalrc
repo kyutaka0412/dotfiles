@@ -38,7 +38,7 @@ pygments:\
 # See gtags(1).
 #---------------------------------------------------------------------
 common:\
-	:skip=HTML/,HTML.pub/,tags,TAGS,ID,y.tab.c,y.tab.h,gtags.files,cscope.files,cscope.out,cscope.po.out,cscope.in.out,SCCS/,RCS/,CVS/,CVSROOT/,{arch}/,autom4te.cache/,*.orig,*.rej,*.bak,*~,#*#,*.swp,*.tmp,*_flymake.*,*_flymake:
+	:skip=bin/,vendor/,HTML/,HTML.pub/,tags,TAGS,ID,y.tab.c,y.tab.h,gtags.files,cscope.files,cscope.out,cscope.po.out,cscope.in.out,SCCS/,RCS/,CVS/,CVSROOT/,{arch}/,autom4te.cache/,*.orig,*.rej,*.bak,*~,#*#,*.swp,*.tmp,*_flymake.*,*_flymake,*.js,*.sh,*.sql,*.py,*.html:
 #
 # Built-in parsers.
 #
@@ -46,7 +46,7 @@ gtags:\
 	:tc=common:\
 	:tc=builtin-parser:
 builtin-parser:\
-    :langmap=c\:.c.h,yacc\:.y,asm\:.s.S,java\:.java,cpp\:.c++.cc.hh.cpp.cxx.hxx.hpp.C.H,php\:.php.php3.phtml.ctp,cs\:.cs.h.cppproj.csproj.aspx.asax.config.cscfg.csdef:
+    :langmap=c\:.c.h,yacc\:.y,asm\:.s.S,java\:.java,cpp\:.c++.cc.hh.cpp.cxx.hxx.hpp.C.H,php\:.php.php3.phtml.ctp,cs\:.cs.h.cppproj.csproj.aspx.asax.config.cscfg.csdef,ruby\:.rb.ruby:
 #
 # skeleton for user's custom parser.
 #
@@ -69,7 +69,6 @@ exuberant-ctags|plugin-example|setting to use Exuberant Ctags plug-in parser:\
 	:langmap=C++\:.c++.cc.cp.cpp.cxx.h.h++.hh.hp.hpp.hxx.C.H:\
 	:langmap=C#\:.cs:\
 	:langmap=Cobol\:.cbl.cob.CBL.COB:\
-	:langmap=DosBatch\:.bat.cmd:\
 	:langmap=Eiffel\:.e:\
 	:langmap=Erlang\:.erl.ERL.hrl.HRL:\
 	:langmap=Flex\:.sos.mxml:\
@@ -156,7 +155,6 @@ pygments-parser|Pygments plug-in parser:\
 	:langmap=Awk\:.sowk.gawk.mawk:\
 	:langmap=BUGS\:.bug:\
 	:langmap=Bash\:.sh.ksh.bash.ebuild.eclass:\
-	:langmap=Bat\:.bat.cmd:\
 	:langmap=BlitzMax\:.bmx:\
 	:langmap=Boo\:.boo:\
 	:langmap=Bro\:.bro:\

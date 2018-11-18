@@ -99,7 +99,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 source ~/.dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # User specific environment and startup programs
-PATH=$HOME/.bin:$HOME/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:/usr/local/opt/go/libexec/bin
+PATH=$HOME/.bin:$HOME/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:/usr/local/opt/go/libexec/bin:/usr/local/share/dotnet/:/Users/kuboshima/Library/Android/sdk/tools:/Users/kuboshima/Library/Android/sdk/platform-tools
 export JAVA_HOME=`/System/Library/Frameworks/JavaVM.framework/Versions/A/Commands/java_home -v "1.8"`
 PATH=${JAVA_HOME}/bin:${PATH}
 LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/opt/mysql/server-5.6/lib
@@ -131,8 +131,18 @@ export PKG_CONFIG_PATH
 export PATH
 export SCALA_HOME
 
-alias vi=vim
+alias vi=nvim
+alias vim=nvim
 alias r=rails
+alias ga='git add'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gc='git commit -m'
+alias gca='git commit --amend --no-edit'
+alias gco='git checkout'
+alias gcdf='git clean -df'
+alias gd='git diff'
+alias gs='git status'
 
 # XDEBUG
 # export XDEBUG_CONFIG="idekey=DBGP"
@@ -143,8 +153,18 @@ alias r=rails
 export GTAGSLABEL=exuberant-ctags
 
 # Default Editor
-export EDITOR=vim
+export EDITOR=nvim
+
+setopt nonomatch
+
+export XDG_CONFIG_HOME=~/.config
 
 # For Tmux PowerLine
 #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+eval "$(rbenv init -)"
 
+export PATH="/usr/local/opt/php@5.6/bin:$PATH"
+export PATH="/usr/local/opt/php@5.6/sbin:$PATH"
+export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

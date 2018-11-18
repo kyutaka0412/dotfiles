@@ -2,6 +2,13 @@
 
 DOTFILES_DIR=".dotfiles"
 
+# dein
+if [ ! -e ~/.cache/dein ]; then
+  curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+  sh ./installer.sh ~/.cache/dein
+  rm ./installer.sh
+fi
+
 # zshrc
 if [ -e ~/.zshrc ]; then
   rm -f ~/.zshrc
@@ -45,4 +52,15 @@ fi
 ln -s ~/$DOTFILES_DIR/.tmux-powerlinerc ~/.tmux-powerlinerc
 
 # global rc settings
+if [ -e ~/.globalrc ]; then
+  rm -f ~/.globalrc
+fi
 ln -s ~/$DOTFILES_DIR/.globalrc ~/.globalrc
+
+# neovim
+if [ ! -e ~/.config ]; then
+  mkdir ~/.config
+fi
+if [ ! -L ~/.config/nvim ]; then
+  ln -s ~/$DOTFILES_DIR/.vim ~/.config/nvim
+fi
