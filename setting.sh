@@ -61,6 +61,13 @@ ln -s ~/$DOTFILES_DIR/.globalrc ~/.globalrc
 if [ ! -e ~/.config ]; then
   mkdir ~/.config
 fi
+
 if [ ! -L ~/.config/nvim ]; then
   ln -s ~/$DOTFILES_DIR/.vim ~/.config/nvim
 fi
+
+# ideavimrc
+if [ -e ~/..ideavimrc ]; then
+  rm -f ~/.ideavimrc
+fi
+ln -s ~/$DOTFILES_DIR/.ideavimrc ~/.ideavimrc
