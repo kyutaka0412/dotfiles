@@ -113,6 +113,8 @@ set foldmethod=syntax
 let perl_fold=1
 set foldlevel=100
 
+set binary noeol
+
 " バッファを開いた時に、カレントディレクトリを自動で移動
 " autocmd BufEnter * execute ":lcd " . expand("%:p:h")
 
@@ -155,8 +157,12 @@ nnoremap <C-p> :bprev<CR>
 "set completeopt+=noinsert
 "set completeopt-=preview
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#auto_complete_delay = 0
+"let g:deoplete#enable_smart_case = 1
+"let g:deoplete#auto_complete_delay = 0
+call deoplete#custom#option({
+\ 'auto_complete_delay': 0,
+\ 'smart_case': v:true,
+\ })
 " disable autocomplete by default
 "let b:deoplete_disable_auto_complete=1
 "let g:deoplete_disable_auto_complete=1
@@ -252,6 +258,8 @@ noremap <C-U><C-C> :Denite file_rec<CR>
 noremap <C-U><C-Y> :Denite register<CR>
 " 再帰的にプロジェクトディレクトリを更新
 noremap <C-U><C-A> :Denite file_rec<CR>
+" 再帰的にプロジェクトディレクトリを更新
+noremap <C-U><C-G> :Denite grep<CR>
 
 " アウトライン
 " noremap <C-U><C-O> :Denite -vertical -no-quit outline<CR>
@@ -302,9 +310,9 @@ let g:ref_refe_encoding='utf-8'
 "  denite-gtags.vim
 " -----------------------------------------------------------------------------
 " grep設定用
-nmap <C-G><C-G> :DeniteCursorWord gtags_grep<CR>
+nmap <C-G><C-G> :Denite -buffer-name=gtags_grep gtags_grep<CR>
 " 使用箇所-定義箇所を移動
-nmap <C-G><C-U> :DeniteCursorWord gtags_def<CR>
+nmap <C-G><C-D> :DeniteCursorWord gtags_def<CR>
 " 定義箇所-使用箇所を移動
 nmap <C-G><C-I> :DeniteCursorWord gtags_ref<CR>
 
@@ -374,10 +382,10 @@ nnoremap <silent> <space>nf :NERDTreeFind<CR>
 " -----------------------------------------------------------------------------
 "  Git
 " -----------------------------------------------------------------------------
-noremap <silent> <space>gs :Gstatus<CR>
-noremap <silent> <space>gb :Gblame<CR>
+noremap <silent> <space>gs :Git<CR>
+noremap <silent> <space>gb :Git blame<CR>
 noremap <silent> <space>gd :Gvdiff<CR>
-noremap <silent> <space>gr :Gremove<CR>
+noremap <silent> <space>gr :GRemove<CR>
 noremap <silent> <space>ggh :GitGutterLineHighlightsToggle<CR>
 
 " -----------------------------------------------------------------------------
@@ -418,3 +426,9 @@ function! s:Jq(...)
     endif
     execute "%! jq \"" . l:arg . "\""
 endfunction
+
+autocmd BufNewFile,BufRead *.jbuilder set filetype=ruby
+autocmd BufNewFile,BufRead *.vue set filetype=javascript
+
+let g:python_host_prog='~/.pyenv/versions/2.7.18/bin/python'
+let g:python3_host_prog='~/.pyenv/versions/3.9.4/bin/python'

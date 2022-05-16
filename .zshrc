@@ -160,11 +160,40 @@ setopt nonomatch
 export XDG_CONFIG_HOME=~/.config
 
 # For Tmux PowerLine
-#PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 eval "$(rbenv init -)"
 
-export PATH="/usr/local/opt/php@5.6/bin:$PATH"
-export PATH="/usr/local/opt/php@5.6/sbin:$PATH"
+export PATH="/usr/local/opt/php@7.2/bin:$PATH"
+export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+alias old_ssh_gcp_spy='gcloud compute --project "corporate-site-201807" ssh --zone "asia-northeast1-a" "google-lamp-vm"'
+alias ssh_gcp_spy='gcloud beta compute --project "corporate-site-201807" ssh --zone "asia-northeast1-a" "spy-dev-001"'
+alias frep='/Users/kuboshima/Downloads/frep_setup_mac_ja/mac.sh'
+alias spy_rsync='/Users/kuboshima/sh/spy_rsync.sh'
+alias gif_conversion='/Users/kuboshima/sh/gif_conversion.sh'
+alias ssh_wave='gcloud beta compute --project "wave-project-201810" ssh --zone "asia-northeast1-a" "prd-wave-project"'
+alias ssh_meikoi='gcloud beta compute --project "wave-project-201810" ssh --zone "asia-northeast1-a" "wordpress-meikoi-vm"'
+#alias python="python3"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+eval "$(pyenv init -)"
+
+function docker_search_tags() {
+  curl -s -S "https://registry.hub.docker.com/v1/repositories/$1/tags" | jq '.[]["name"]'
+}
+
+#if which ruby >/dev/null && which gem >/dev/null; then
+#    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+#fi
+
+export PATH="/usr/local/Cellar/git/2.31.1/bin:$PATH"
+
+function git_current_branch_name()
+{
+  git branch | grep '^\*' | sed 's/^\* *//'
+}
+alias -g cbn='"$(git_current_branch_name)"'
