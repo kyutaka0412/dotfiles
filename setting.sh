@@ -71,3 +71,11 @@ if [ -e ~/..ideavimrc ]; then
   rm -f ~/.ideavimrc
 fi
 ln -s ~/$DOTFILES_DIR/.ideavimrc ~/.ideavimrc
+
+# tigrc
+if [ -e ~/.tigrc ]; then
+  rm -f ~/.tigrc
+fi
+ln -s ~/$DOTFILES_DIR/.tigrc ~/.tigrc
+
+
