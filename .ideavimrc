@@ -50,6 +50,7 @@ nnoremap gi :action GotoImplementation<CR>
 nnoremap gs :action GotoSymbol<CR>
 nnoremap gu :action FindUsages<CR>
 nnoremap gr :action RenameElement<CR>
+nnoremap go :action Github.Open.In.Browser<CR>
 nnoremap cc :action CommentByLineComment<CR>
 vnoremap cc :action CommentByLineComment<CR>
 nnoremap == :action ReformatCode<CR>
