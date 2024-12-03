@@ -99,8 +99,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 source ~/.dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # User specific environment and startup programs
-PATH=$HOME/.bin:$HOME/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:/usr/local/opt/go/libexec/bin:/usr/local/share/dotnet/:/Users/kuboshima/Library/Android/sdk/tools:/Users/kuboshima/Library/Android/sdk/platform-tools
-export JAVA_HOME=`/System/Library/Frameworks/JavaVM.framework/Versions/A/Commands/java_home -v "1.8"`
+PATH=$HOME/.bin:$HOME/.rbenv/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:/usr/local/opt/go/libexec/bin:/usr/local/share/dotnet/:/Users/kuboshima/Library/Android/sdk/tools:/Users/kuboshima/Library/Android/sdk/platform-tools
+#export JAVA_HOME=`/System/Library/Frameworks/JavaVM.framework/Versions/A/Commands/java_home -v "1.8"`
 PATH=${JAVA_HOME}/bin:${PATH}
 LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/opt/mysql/server-5.6/lib
 PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
@@ -131,6 +131,7 @@ export PKG_CONFIG_PATH
 export PATH
 export SCALA_HOME
 
+alias ag=rg
 alias vi=nvim
 alias vim=nvim
 alias r=rails
@@ -143,6 +144,14 @@ alias gco='git checkout'
 alias gcdf='git clean -df'
 alias gd='git diff'
 alias gs='git status'
+
+alias dcb='docker compose build'
+alias dcbnc='docker compose build --no-cache'
+alias dcd='docker compose down'
+alias dcp='docker compose ps'
+alias dcu='docker compose up -d'
+
+alias run_localstack='docker run --rm -it -d -p 127.0.0.1:4566:4566 -p 127.0.0.1:4510-4559:4510-4559 -v /var/run/docker.sock:/var/run/docker.sock localstack/localstack'
 
 # XDEBUG
 # export XDEBUG_CONFIG="idekey=DBGP"
@@ -169,18 +178,11 @@ export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 #export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-alias old_ssh_gcp_spy='gcloud compute --project "corporate-site-201807" ssh --zone "asia-northeast1-a" "google-lamp-vm"'
-alias ssh_gcp_spy='gcloud beta compute --project "corporate-site-201807" ssh --zone "asia-northeast1-a" "spy-dev-001"'
-alias frep='/Users/kuboshima/Downloads/frep_setup_mac_ja/mac.sh'
-alias spy_rsync='/Users/kuboshima/sh/spy_rsync.sh'
-alias gif_conversion='/Users/kuboshima/sh/gif_conversion.sh'
-alias ssh_wave='gcloud beta compute --project "wave-project-201810" ssh --zone "asia-northeast1-a" "prd-wave-project"'
-alias ssh_meikoi='gcloud beta compute --project "wave-project-201810" ssh --zone "asia-northeast1-a" "wordpress-meikoi-vm"'
 #alias python="python3"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-eval "$(pyenv init -)"
+#eval "$(pyenv init -)"
 
 function docker_search_tags() {
   curl -s -S "https://registry.hub.docker.com/v1/repositories/$1/tags" | jq '.[]["name"]'
