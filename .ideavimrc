@@ -42,7 +42,7 @@ set cinoptions+=:0
 
 " 圧倒的アクション呼び出し
 nnoremap ga :action GotoAction<CR>
-nnoremap gb :action BuildSolutionAction<CR>
+nnoremap gb :action Annotate<CR>
 nnoremap gc :action GotoClass<CR>
 nnoremap gd :action GotoDeclaration<CR>
 nnoremap gf :action GotoFile<CR>
@@ -61,7 +61,6 @@ nnoremap fb :action Debugger.FocusOnBreakpoint<CR>
 nnoremap tp :action PlayInUnityAction<CR>
 nnoremap ts :action PauseInUnityAction<CR>
 nnoremap tu :action StepInUnityAction<CR>
-nnoremap an :action Annotate<CR>
 nnoremap ]c :action VcsShowNextChangeMarker<CR>
 nnoremap [c :action VcsShowPrevChangeMarker<CR>
 nnoremap ]t :action NextTab<CR>

@@ -12,6 +12,7 @@ SPROMPT="correct: %R -> %r ? "
 bindkey -e
 
 # completion setting
+FPATH="/opt/homebrew/share/zsh/site-functions:${FPATH}"
 autoload -Uz compinit
 compinit
 
@@ -96,15 +97,18 @@ setopt prompt_subst
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # command line highlighting
-source ~/.dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source ~/.dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.dotfiles/zsh-syntax-highlighting/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 
 # User specific environment and startup programs
 PATH=$HOME/.bin:$HOME/.rbenv/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:/usr/local/opt/go/libexec/bin:/usr/local/share/dotnet/:/Users/kuboshima/Library/Android/sdk/tools:/Users/kuboshima/Library/Android/sdk/platform-tools
 #export JAVA_HOME=`/System/Library/Frameworks/JavaVM.framework/Versions/A/Commands/java_home -v "1.8"`
-PATH=${JAVA_HOME}/bin:${PATH}
-LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/opt/mysql/server-5.6/lib
-PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
-SCALA_HOME=/usr/local/scala
+#PATH=${JAVA_HOME}/bin:${PATH}
+#LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/opt/mysql/server-5.6/lib
+#PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+#SCALA_HOME=/usr/local/scala
 export GOPATH=$HOME/.go
 
 # OSのタイプによって切り分け
@@ -172,15 +176,16 @@ export XDG_CONFIG_HOME=~/.config
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 eval "$(rbenv init -)"
 
-export PATH="/usr/local/opt/php@7.2/bin:$PATH"
-export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
-export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+#export PATH="/usr/local/opt/php@7.2/bin:$PATH"
+#export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
+#export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 #export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-#alias python="python3"
+alias python="python3"
+alias pip="pip3"
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+#export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 #eval "$(pyenv init -)"
 
@@ -192,10 +197,15 @@ function docker_search_tags() {
 #    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 #fi
 
-export PATH="/usr/local/Cellar/git/2.31.1/bin:$PATH"
+#export PATH="/usr/local/Cellar/git/2.31.1/bin:$PATH"
 
 function git_current_branch_name()
 {
   git branch | grep '^\*' | sed 's/^\* *//'
 }
 alias -g cbn='"$(git_current_branch_name)"'
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+

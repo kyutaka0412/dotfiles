@@ -2,6 +2,8 @@
 
 DOTFILES_DIR=".dotfiles"
 
+git submodule update --init --recursive
+
 # zshrc
 if [ -e ~/.zshrc ]; then
 	rm -f ~/.zshrc
