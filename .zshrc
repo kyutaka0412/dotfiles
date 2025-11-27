@@ -1,3 +1,5 @@
+# Kiro CLI pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
 # setting variables
 HISTFILE=~/.zsh_history
 HISTSIZE=6000000
@@ -157,6 +159,7 @@ alias dcu='docker compose up -d'
 
 alias run_localstack='docker run --rm -it -d -p 127.0.0.1:4566:4566 -p 127.0.0.1:4510-4559:4510-4559 -v /var/run/docker.sock:/var/run/docker.sock localstack/localstack'
 
+alias gw='cd /Volumes/DataVault/work/'
 # XDEBUG
 # export XDEBUG_CONFIG="idekey=DBGP"
 # export XDEBUG_SESSION_START=DBGP
@@ -207,5 +210,16 @@ alias -g cbn='"$(git_current_branch_name)"'
 
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+eval "$(pyenv init -)"export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/kuboshima/.config/.dart-cli-completion/zsh-config.zsh ]] && . /Users/kuboshima/.config/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
+export PATH="$PATH:$HOME/.pub-cache/bin"
+
+# Kiro CLI post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
