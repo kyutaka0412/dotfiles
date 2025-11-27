@@ -16,7 +16,12 @@ bindkey -e
 # completion setting
 FPATH="/opt/homebrew/share/zsh/site-functions:${FPATH}"
 autoload -Uz compinit
-compinit
+# Speed up compinit by checking cache once per day
+if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump 2>/dev/null) ]; then
+  compinit
+else
+  compinit -C
+fi
 
 # VCS
 zstyle ':vcs_info:*' formats '%b'
@@ -60,7 +65,7 @@ zstyle ':zle:*' word-style unspecified
 setopt no_flow_control
 
 # ignore duplication command history list
-setopt hist_ignore_dups     
+setopt hist_ignore_dups
 
 # share command history data
 setopt share_history
@@ -86,10 +91,10 @@ setopt auto_param_slash
 setopt auto_remove_slash
 setopt no_menu_complete
 
-# **/* glob 
+# **/* glob
 setopt extended_glob
 
-# transient RPROMPT 
+# transient RPROMPT
 setopt transient_rprompt
 
 # deployment variables to prompt
@@ -105,7 +110,7 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.dotfiles/zsh-syntax-highlighting/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 
 # User specific environment and startup programs
-PATH=$HOME/.bin:$HOME/.rbenv/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:/usr/local/opt/go/libexec/bin:/usr/local/share/dotnet/:/Users/kuboshima/Library/Android/sdk/tools:/Users/kuboshima/Library/Android/sdk/platform-tools
+PATH=$HOME/.bin:$HOME/.rbenv/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:/usr/local/opt/go/libexec/bin:/usr/local/share/dotnet/:~/Library/Android/sdk/tools:~/Library/Android/sdk/platform-tools
 #export JAVA_HOME=`/System/Library/Frameworks/JavaVM.framework/Versions/A/Commands/java_home -v "1.8"`
 #PATH=${JAVA_HOME}/bin:${PATH}
 #LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/opt/mysql/server-5.6/lib
@@ -156,6 +161,7 @@ alias dcbnc='docker compose build --no-cache'
 alias dcd='docker compose down'
 alias dcp='docker compose ps'
 alias dcu='docker compose up -d'
+alias gw='cd ~/work'
 
 alias run_localstack='docker run --rm -it -d -p 127.0.0.1:4566:4566 -p 127.0.0.1:4510-4559:4510-4559 -v /var/run/docker.sock:/var/run/docker.sock localstack/localstack'
 
@@ -163,7 +169,11 @@ alias gw='cd /Volumes/DataVault/work/'
 # XDEBUG
 # export XDEBUG_CONFIG="idekey=DBGP"
 # export XDEBUG_SESSION_START=DBGP
-# eval "$(rbenv init -)"
+# # Lazy load rbenv for faster shell startup
+alias rbenv='unalias rbenv ruby bundle gem; eval "$(rbenv init -)" && rbenv'
+alias ruby='unalias rbenv ruby bundle gem; eval "$(rbenv init -)" && ruby'
+alias bundle='unalias rbenv ruby bundle gem; eval "$(rbenv init -)" && bundle'
+alias gem='unalias rbenv ruby bundle gem; eval "$(rbenv init -)" && gem'
 
 # ctags for GNU Global
 export GTAGSLABEL=exuberant-ctags
@@ -177,14 +187,23 @@ export XDG_CONFIG_HOME=~/.config
 
 # For Tmux PowerLine
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
-eval "$(rbenv init -)"
+# Lazy load rbenv for faster shell startup
+alias rbenv='unalias rbenv ruby bundle gem; eval "$(rbenv init -)" && rbenv'
+alias ruby='unalias rbenv ruby bundle gem; eval "$(rbenv init -)" && ruby'
+alias bundle='unalias rbenv ruby bundle gem; eval "$(rbenv init -)" && bundle'
+alias gem='unalias rbenv ruby bundle gem; eval "$(rbenv init -)" && gem'
 
 #export PATH="/usr/local/opt/php@7.2/bin:$PATH"
 #export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
 #export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+export NVM_DIR="$HOME/.nvm"
+# Lazy load NVM for faster shell startup
+alias nvm='unalias nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm'
+alias node='unalias nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; node'
+alias npm='unalias nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; npm'
+alias npx='unalias nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; npx'
 
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 alias python="python3"
 alias pip="pip3"
 
@@ -210,9 +229,8 @@ alias -g cbn='"$(git_current_branch_name)"'
 
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# Lazy load pyenv for faster shell startup
+alias pyenv='unalias pyenv python python3 pip pip3; eval "$(pyenv init -)" && pyenv'
 
 ## [Completion]
 ## Completion scripts setup. Remove the following line to uninstall
